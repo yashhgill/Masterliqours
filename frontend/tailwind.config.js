@@ -1,0 +1,98 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['"Fraunces"', "ui-serif", "Georgia", "serif"],
+        body: ['"Outfit"', "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "Menlo", "monospace"],
+        han: ['"Noto Serif SC"', '"Fraunces"', "serif"],
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      colors: {
+        bone: {
+          50: "#FBF7EE",
+          100: "#F4EFE2",
+          200: "#EDE5D2",
+          300: "#D9CCAE",
+          400: "#BAA988",
+        },
+        ink: {
+          900: "#141414",
+          800: "#1F1F1F",
+          700: "#2C2C2C",
+          600: "#4A463F",
+          500: "#6B6358",
+          400: "#9C9286",
+          300: "#BFB6A7",
+        },
+        oxblood: {
+          50: "#F9E9E7",
+          100: "#F1C8C5",
+          400: "#C8332B",
+          500: "#A8231C",
+          600: "#8B1D17",
+          700: "#6E1612",
+          800: "#4E0E0A",
+        },
+        gold: {
+          50: "#FAF1DC",
+          100: "#F0DDA8",
+          400: "#D8B161",
+          500: "#C9A24A",
+          600: "#A88439",
+          700: "#84662A",
+        },
+        neon: {
+          pink: "#FF107A",
+          cyan: "#00CFD5",
+          green: "#14C400",
+          yellow: "#FDE047",
+          whatsapp: "#25D366",
+        },
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" },
+        popover: { DEFAULT: "hsl(var(--popover))", foreground: "hsl(var(--popover-foreground))" },
+        primary: { DEFAULT: "hsl(var(--primary))", foreground: "hsl(var(--primary-foreground))" },
+        secondary: { DEFAULT: "hsl(var(--secondary))", foreground: "hsl(var(--secondary-foreground))" },
+        muted: { DEFAULT: "hsl(var(--muted))", foreground: "hsl(var(--muted-foreground))" },
+        accent: { DEFAULT: "hsl(var(--accent))", foreground: "hsl(var(--accent-foreground))" },
+        destructive: { DEFAULT: "hsl(var(--destructive))", foreground: "hsl(var(--destructive-foreground))" },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "neon-pulse": {
+          "0%,100%": { boxShadow: "0 0 0 0 rgba(255,16,122,0)" },
+          "50%": { boxShadow: "0 0 24px 4px rgba(255,16,122,0.45)" },
+        },
+        "spin-slow": {
+          from: { transform: "rotate(0)" },
+          to: { transform: "rotate(360deg)" },
+        },
+        "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
+        "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
+      },
+      animation: {
+        marquee: "marquee 38s linear infinite",
+        "neon-pulse": "neon-pulse 2.4s ease-in-out infinite",
+        "spin-slow": "spin-slow 30s linear infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate")],
+};

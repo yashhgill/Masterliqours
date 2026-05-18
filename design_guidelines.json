@@ -1,0 +1,139 @@
+{
+  "project_name": "Master Liquors",
+  "domain": "masterliquors.my",
+  "theme": "Dark",
+  "archetype": "Archetype 7: Electric & Neon (Tokyo Speakeasy / Cyberpunk Variant)",
+  "concept": "A hidden, underground speakeasy vibe with neon back-alley aesthetics. Ditching the generic corporate ecommerce look for a highly stylized, cinematic shopping experience.",
+  "typography": {
+    "fonts": {
+      "headings": "Unbounded",
+      "body": "Outfit",
+      "monospace": "JetBrains Mono"
+    },
+    "rules": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight uppercase",
+      "body": "text-base font-light leading-relaxed tracking-wide",
+      "labels_and_prices": "font-mono text-sm tracking-[0.1em] uppercase",
+      "weight_contrast": "Radical weight contrast (Black vs Light). Never use generic regular weights for headings."
+    }
+  },
+  "color_palette": {
+    "backgrounds": {
+      "base": "#050505",
+      "surface": "#121212",
+      "surface_elevated": "#1A1A1A"
+    },
+    "text": {
+      "primary": "#F3F4F6",
+      "secondary": "#9CA3AF",
+      "muted": "#4B5563"
+    },
+    "accents": {
+      "neon_pink": "#FF107A",
+      "cyber_yellow": "#FDE047",
+      "laser_green": "#39FF14",
+      "cyan": "#00FFFF",
+      "whatsapp_neon": "#25D366"
+    },
+    "rules": "Never use pure white (#FFFFFF). Never use purple/white gradients. Rely on Black-on-Black layers to ground the neon. Use neon colors purely for interaction, glow, and borders."
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing (p-8 to p-24) on marketing/storefront pages to let the dark atmosphere breathe. Tight density (gap-4) for the Admin Dashboard.",
+    "bento_grid": "Use asymmetrical 'Tetris' grid logic for the home page featured products (col-span-full md:col-span-8 row-span-2 for Hero).",
+    "borders": "Expose the skeleton. Use 1px solid borders (border-pink-500/30 or border-zinc-800) heavily. Minimal border-radius (rounded-none or max rounded-sm)."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-cyber_yellow text-black font-bold uppercase tracking-widest hover:shadow-[0_0_20px_rgba(253,224,71,0.6)] transition-all duration-300 rounded-none px-6 py-3",
+      "secondary_neon": "bg-transparent border border-neon_pink text-neon_pink font-bold uppercase tracking-widest hover:bg-neon_pink hover:text-black hover:shadow-[0_0_20px_rgba(255,16,122,0.6)] transition-all duration-300 rounded-none px-6 py-3",
+      "whatsapp": "bg-transparent border border-whatsapp_neon text-whatsapp_neon hover:bg-whatsapp_neon hover:text-black hover:shadow-[0_0_25px_rgba(37,211,102,0.6)] font-bold uppercase rounded-none px-6 py-4 flex items-center justify-center gap-3"
+    },
+    "cards": {
+      "product_card": "bg-surface border border-zinc-800 hover:border-neon_pink/50 transition-colors duration-300 rounded-none p-4 group relative overflow-hidden",
+      "hover_effect": "On hover, the product image scales up slightly, and the card gets a subtle inner neon glow."
+    },
+    "inputs": {
+      "style": "bg-black border-b border-zinc-700 focus:border-neon_pink focus:ring-0 rounded-none px-0 py-2 text-primary font-mono outline-none transition-colors",
+      "labels": "text-xs font-mono text-secondary uppercase tracking-widest"
+    }
+  },
+  "pages_and_flows": {
+    "age_gate": {
+      "background": "Use image 'age_gate_bg' as full cover.",
+      "layout": "Centered modal. Terminal/Retro-Futurism aesthetic.",
+      "content": "Strict DOB picker (DD/MM/YYYY) using font-mono. 'ENTER THE UNDERGROUND' CTA in cyber_yellow."
+    },
+    "hero_landing": {
+      "background": "Use image 'hero_neon_bar'. Overlay with bg-black/40 (gradient to bottom for seamless blending).",
+      "typography": "Massive Unbounded text. 'NECTAR OF THE NIGHT.'",
+      "marquee": "Use a slow-moving marquee at the bottom: '21+ ONLY // PREMIUM LIQUORS // KUALA LUMPUR DELIVERY'."
+    },
+    "product_catalog": {
+      "layout": "3-column grid on desktop. 1-column mobile.",
+      "filters": "Sidebar or top sticky bar. Categories (Whisky, Gin, Vodka) styled as clickable neon tags.",
+      "product_details": "Image centered. Title in Unbounded. Price and ABV% in JetBrains Mono neon_pink. 'ADD TO CART' secondary_neon button."
+    },
+    "cart_and_checkout": {
+      "drawer": "Dark glassmorphism (bg-black/80 backdrop-blur-2xl border-l border-zinc-800).",
+      "receipt_style": "Order summary must look like a POS terminal printout (JetBrains Mono, dashed borders).",
+      "checkout_action": "Manual Bank Transfer instructions box (border-cyber_yellow border p-4). Then large WhatsApp CTA to finalize order."
+    },
+    "admin_dashboard": {
+      "theme_variant": "Terminal/Retro-Futurism. No soft UI.",
+      "layout": "Control Room Grid. Left sidebar for navigation.",
+      "data_display": "JetBrains Mono for all tables. Use laser_green for positive stock, neon_pink for low stock alerts."
+    }
+  },
+  "image_urls": [
+    {
+      "category": "hero",
+      "url": "https://static.prod-images.emergentagent.com/jobs/172c0a50-3887-4fa6-ac66-7074571ca4ea/images/9b21d3e8d1075867facd0f82fe99e8bff90c1cfa7771c11846cd2fa636718174.png",
+      "description": "Tokyo back-alley speakeasy entrance (Hero section background)"
+    },
+    {
+      "category": "age_gate_bg",
+      "url": "https://static.prod-images.emergentagent.com/jobs/172c0a50-3887-4fa6-ac66-7074571ca4ea/images/faa6d9b02c1353a02a3f65ff4cc43ec9e71434e3eda6498dd0c853bd6166d76a.png",
+      "description": "Abstract dark matte black texture with subtle neon pink/cyan edge lighting"
+    },
+    {
+      "category": "section_bg",
+      "url": "https://static.prod-images.emergentagent.com/jobs/172c0a50-3887-4fa6-ac66-7074571ca4ea/images/2831074db026444ce91aef1eae00a46189ef89bf941015202cf643221ef2d414.png",
+      "description": "Dark minimalist aesthetic background with glowing neon yellow circle light"
+    },
+    {
+      "category": "product_whisky",
+      "url": "https://images.unsplash.com/photo-1592620352607-53100d32f9fb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwyfHxwcmVtaXVtJTIwbGlxdW9yJTIwYm90dGxlJTIwYmxhY2slMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3ODYwMzc4MHww&ixlib=rb-4.1.0&q=85",
+      "description": "Jack Daniels whiskey on black background"
+    },
+    {
+      "category": "product_vodka",
+      "url": "https://images.unsplash.com/photo-1703437871687-427b69640924?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwbGlxdW9yJTIwYm90dGxlJTIwYmxhY2slMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3ODYwMzc4MHww&ixlib=rb-4.1.0&q=85",
+      "description": "Smirnoff vodka on reflective surface"
+    },
+    {
+      "category": "product_generic",
+      "url": "https://images.unsplash.com/photo-1744730850404-43e48b576470?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwzfHxwcmVtaXVtJTIwbGlxdW9yJTIwYm90dGxlJTIwYmxhY2slMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3ODYwMzc4MHww&ixlib=rb-4.1.0&q=85",
+      "description": "Liquor bottle on black background"
+    },
+    {
+      "category": "decorative_neon_1",
+      "url": "https://images.unsplash.com/photo-1628254116228-58e131b7bc56?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxuZW9uJTIwc2lnbiUyMGJhciUyMGRhcmt8ZW58MHx8fHwxNzc4NjAzNzgwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Red neon signage for bar details"
+    }
+  ],
+  "accessibility_and_testing": {
+    "testing_attributes": "All interactive and key informational elements MUST include a data-testid attribute (e.g., data-testid='age-gate-submit', data-testid='add-to-cart-button', data-testid='checkout-whatsapp-btn').",
+    "contrast": "Ensure neon text against black background passes minimum 4.5:1 ratio. Text shadow can be used if overlaying on images."
+  },
+  "instructions_to_main_agent": [
+    "DO NOT use Inter or Roboto. Import Unbounded, Outfit, and JetBrains Mono from Google Fonts.",
+    "DO NOT use Shadcn Card components with their default soft border-radius. Override rounded-xl to rounded-none or rounded-sm. Embrace sharp edges.",
+    "Implement the age gate as a strictly enforced modal overlay on first visit using the age_gate_bg image.",
+    "For the checkout flow, do NOT build a standard credit card form. The user requires Manual Bank Transfer + WhatsApp handoff. Generate a WhatsApp API link containing the cart details and order total upon clicking the checkout button.",
+    "Build the admin dashboard separately (e.g., /admin route) with a dense data layout using JetBrains Mono for inventory metrics.",
+    "Rely heavily on Tailwind's shadow utilities customized with neon colors for hover states (e.g., hover:shadow-[0_0_15px_#FF107A]).",
+    "Ensure the hero image is layered correctly. Use bg-black/40 overlay to ensure Unbounded typography remains highly legible.",
+    "Apply data-testid attributes to everything for future automated testing."
+  ]
+}
