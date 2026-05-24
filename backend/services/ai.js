@@ -1,6 +1,4 @@
-const { GEMINI_API_KEY } = require('../config');
-
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+const { GROQ_API_KEY } = require('../config');
 
 async function formatOrderWithAI(order) {
   try {
@@ -24,22 +22,27 @@ Rules:
 - End with exactly this line: Reply *ACCEPT ${order.id}* to claim this order.
 - Do NOT add any extra commentary`;
 
-    const response = await fetch(GEMINI_URL, {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': `Bearer ${GROQ_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { maxOutputTokens: 500, temperature: 0.4 },
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 500,
+        temperature: 0.4,
       }),
     });
 
     const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const text = data.choices?.[0]?.message?.content;
 
     if (text) return text;
     return buildFallbackMessage(order);
   } catch (err) {
-    console.error('Gemini formatting failed, using fallback:', err.message);
+    console.error('Groq formatting failed, using fallback:', err.message);
     return buildFallbackMessage(order);
   }
 }

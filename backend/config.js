@@ -16,7 +16,7 @@ module.exports = {
   WHATSAPP_VERIFY_TOKEN: process.env.WHATSAPP_VERIFY_TOKEN || 'masterliquors_webhook_secret',
 
   // Gemini AI
-  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+  GROQ_API_KEY: process.env.GROQ_API_KEY,
 
   // TEST MODE — set TEST_MODE=true in .env to skip real WhatsApp sends
   TEST_MODE: process.env.TEST_MODE === 'true',
