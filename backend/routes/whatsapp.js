@@ -1,63 +1,62 @@
-const { WHATSAPP_TOKEN, WHATSAPP_PHONE_NUMBER_ID, STAFF, TEST_MODE } = require('../config');
+const express = require('express');
+const router = express.Router();
+const { WHATSAPP_VERIFY_TOKEN } = require('../config');
+const { getOrder, updateOrder } = require('../services/orders');
+const { sendMessage } = require('../services/whatsapp');
 
-const WA_API_URL = `https://graph.facebook.com/v19.0/${WHATSAPP_PHONE_NUMBER_ID}/messages`;
-
-async function sendMessage(to, text) {
-  // ── TEST MODE: just log, don't actually send ──
-  if (TEST_MODE) {
-    console.log('\n' + '='.repeat(60));
-    console.log(`📲 [TEST MODE] WhatsApp to: ${to}`);
-    console.log('-'.repeat(60));
-    console.log(text);
-    console.log('='.repeat(60) + '\n');
-    return true;
+router.get('/', (req, res) => {
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
+  if (mode === 'subscribe' && token === WHATSAPP_VERIFY_TOKEN) {
+    console.log('✅ WhatsApp webhook verified');
+    return res.status(200).send(challenge);
   }
+  res.sendStatus(403);
+});
 
+router.post('/', async (req, res) => {
   try {
-    const response = await fetch(WA_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${WHATSAPP_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        messaging_product: 'whatsapp',
-        to,
-        type: 'text',
-        text: { body: text },
-      }),
-    });
+    const body = req.body;
+    if (body.object !== 'whatsapp_business_account') return res.sendStatus(404);
+    const messages = body.entry?.[0]?.changes?.[0]?.value?.messages;
+    if (!messages?.length) return res.sendStatus(200);
 
-    const data = await response.json();
-    if (!response.ok) {
-      console.error(`WhatsApp send failed to ${to}:`, data);
-      return false;
+    for (const msg of messages) {
+      if (msg.type !== 'text') continue;
+      const fromNumber = msg.from;
+      const text = msg.text.body.trim().toUpperCase();
+      const acceptMatch = text.match(/^ACCEPT\s+(ML-\d+)/);
+      const fulfilledMatch = text.match(/^FULFILLED\s+(ML-\d+)/);
+      if (acceptMatch) await handleAccept(acceptMatch[1], fromNumber);
+      else if (fulfilledMatch) await handleFulfilled(fulfilledMatch[1], fromNumber);
     }
-
-    console.log(`📲 WhatsApp sent to ${to}`);
-    return true;
+    res.sendStatus(200);
   } catch (err) {
-    console.error(`WhatsApp error sending to ${to}:`, err.message);
-    return false;
+    console.error('Webhook error:', err);
+    res.sendStatus(500);
   }
+});
+
+async function handleAccept(orderId, staffNumber) {
+  const order = await getOrder(orderId);
+  if (!order) { await sendMessage(staffNumber, `❌ Order ${orderId} not found.`); return; }
+  if (order.status !== 'pending') { await sendMessage(staffNumber, `⚠️ Order ${orderId} already claimed.`); return; }
+  await updateOrder(orderId, { status: 'accepted', acceptedBy: staffNumber, updatedAt: new Date().toISOString() });
+  await sendMessage(staffNumber, `✅ You claimed Order ${orderId}!\n\nCustomer: ${order.customer.name}\nPhone: ${order.customer.phone}\n\nContact the customer directly.\n\nOnce delivered reply: FULFILLED ${orderId}`);
+  console.log(`📦 Order ${orderId} accepted by ${staffNumber}`);
 }
 
-async function sendToAllStaff(message, orderId) {
-  if (!STAFF.length) {
-    console.warn('⚠️  No staff numbers configured in .env');
-    return;
-  }
-
-  if (TEST_MODE) {
-    console.log(`\n🧪 TEST MODE — Simulating blast to ${STAFF.length} staff for order ${orderId}`);
-  }
-
-  const results = await Promise.allSettled(
-    STAFF.map((s) => sendMessage(s.number, message))
-  );
-
-  const sent = results.filter((r) => r.status === 'fulfilled' && r.value === true).length;
-  console.log(`📨 Order ${orderId} notification sent to ${sent}/${STAFF.length} staff`);
+async function handleFulfilled(orderId, staffNumber) {
+  const order = await getOrder(orderId);
+  if (!order) { await sendMessage(staffNumber, `❌ Order ${orderId} not found.`); return; }
+  if (order.acceptedBy !== staffNumber) { await sendMessage(staffNumber, `⚠️ You didn't claim Order ${orderId}.`); return; }
+  if (order.status === 'fulfilled') { await sendMessage(staffNumber, `ℹ️ Order ${orderId} already fulfilled.`); return; }
+  const { updateExcel } = require('../services/excel');
+  await updateOrder(orderId, { status: 'fulfilled', updatedAt: new Date().toISOString() });
+  await updateExcel(order);
+  await sendMessage(staffNumber, `🎉 Order ${orderId} fulfilled! Excel updated.`);
+  console.log(`✅ Order ${orderId} fulfilled by ${staffNumber}`);
 }
 
-module.exports = { sendMessage, sendToAllStaff };
+module.exports = router;
