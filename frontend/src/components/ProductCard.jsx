@@ -47,9 +47,16 @@ export default function ProductCard({ product }) {
           <div className="flex items-end justify-between mt-4">
             <div>
               <div className="cap-mono !text-[9px]">Price</div>
-              <div className="font-mono font-bold text-xl text-oxblood-500">
-                RM{product.price_myr.toFixed(2)}
-              </div>
+              {product.promo_price ? (
+                <div>
+                  <span className="font-mono text-sm text-ink-400 line-through mr-2">RM{product.price_myr.toFixed(2)}</span>
+                  <span className="font-mono font-bold text-xl text-oxblood-500">RM{Number(product.promo_price).toFixed(2)}</span>
+                </div>
+              ) : (
+                <div className="font-mono font-bold text-xl text-oxblood-500">
+                  RM{product.price_myr.toFixed(2)}
+                </div>
+              )}
             </div>
             <div className="text-right">
               <div className="cap-mono !text-[9px]">ABV · Vol</div>

@@ -9,9 +9,7 @@ async function readProducts() {
   try {
     const data = await fs.readFile(PRODUCTS_FILE, 'utf8');
     return JSON.parse(data);
-  } catch {
-    return [];
-  }
+  } catch { return []; }
 }
 
 async function writeProducts(products) {
@@ -19,9 +17,39 @@ async function writeProducts(products) {
   await fs.writeFile(PRODUCTS_FILE, JSON.stringify(products, null, 2));
 }
 
-// GET /products
-router.get('/', async (req, res) => {
+// GET /products/categories — MUST be before /:id
+router.get('/categories', async (req, res) => {
   const products = await readProducts();
+  const cats = [...new Set(products.map(p => p.category).filter(Boolean))].sort();
+  res.json(cats);
+});
+
+// GET /products — with optional filters
+router.get('/', async (req, res) => {
+  let products = await readProducts();
+
+  const { category, search, featured } = req.query;
+
+  if (category && category !== 'all') {
+    products = products.filter(p =>
+      p.category?.toLowerCase() === category.toLowerCase()
+    );
+  }
+
+  if (search) {
+    const q = search.toLowerCase();
+    products = products.filter(p =>
+      p.name?.toLowerCase().includes(q) ||
+      p.brand?.toLowerCase().includes(q) ||
+      p.category?.toLowerCase().includes(q) ||
+      p.description?.toLowerCase().includes(q)
+    );
+  }
+
+  if (featured === 'true') {
+    products = products.filter(p => p.featured === true);
+  }
+
   res.json(products);
 });
 

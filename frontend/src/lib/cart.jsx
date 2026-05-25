@@ -30,7 +30,8 @@ export function CartProvider({ children }) {
         {
           product_id: product.id,
           name: product.name,
-          price_myr: product.price_myr,
+          price_myr: product.promo_price ? Number(product.promo_price) : product.price_myr,
+          original_price: product.price_myr,
           quantity,
           image_url: product.image_url,
           brand: product.brand,

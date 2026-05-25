@@ -35,7 +35,14 @@ export default function ProductDetail() {
           </h1>
 
           <div className="mt-8 grid grid-cols-4 gap-4 border-y border-bone-300 py-6">
-            <Stat label="Price" value={`RM${p.price_myr.toFixed(2)}`} highlight />
+            {p.promo_price ? (
+              <>
+                <Stat label="Was" value={`RM${p.price_myr.toFixed(2)}`} strike />
+                <Stat label="Price" value={`RM${Number(p.promo_price).toFixed(2)}`} highlight />
+              </>
+            ) : (
+              <Stat label="Price" value={`RM${p.price_myr.toFixed(2)}`} highlight />
+            )}
             <Stat label="ABV" value={`${p.abv}%`} />
             <Stat label="Volume" value={`${p.volume_ml}ml`} />
             <Stat label="Stock" value={out ? "0" : p.stock} state={out ? "out" : p.stock < 5 ? "low" : "ok"} />
@@ -73,8 +80,8 @@ export default function ProductDetail() {
   );
 }
 
-function Stat({ label, value, highlight, state }) {
-  const cls = highlight
+function Stat({ label, value, highlight, state, strike }) {
+  const cls = strike ? "text-ink-400 text-xl line-through" : highlight
     ? "text-oxblood-500 text-2xl"
     : state === "out"
     ? "text-ink-400 text-xl"

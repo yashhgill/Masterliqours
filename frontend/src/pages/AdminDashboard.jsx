@@ -267,6 +267,7 @@ function ProductEditor({ product, onClose, onSaved }) {
     description: product.description || "",
     featured: !!product.featured,
     origin: product.origin || "",
+    promo_price: product.promo_price ?? "",
   });
   const [busy, setBusy] = useState(false);
 
@@ -307,6 +308,7 @@ function ProductEditor({ product, onClose, onSaved }) {
           <Editor label="ABV %" type="number" value={f.abv} onChange={(v) => setF({ ...f, abv: parseFloat(v || 0) })} testId="pe-abv" />
           <Editor label="Volume (ml)" type="number" value={f.volume_ml} onChange={(v) => setF({ ...f, volume_ml: parseInt(v || 0) })} testId="pe-volume" />
           <Editor label="Price (MYR)" type="number" step="0.01" value={f.price_myr} onChange={(v) => setF({ ...f, price_myr: parseFloat(v || 0) })} testId="pe-price" />
+          <Editor label="Promo Price (MYR) — optional" type="number" step="0.01" value={f.promo_price} onChange={(v) => setF({ ...f, promo_price: v ? parseFloat(v) : "" })} testId="pe-promo" />
           <Editor label="Stock" type="number" value={f.stock} onChange={(v) => setF({ ...f, stock: parseInt(v || 0) })} testId="pe-stock" />
           <div className="col-span-2">
             <Editor label="Image URL" value={f.image_url} onChange={(v) => setF({ ...f, image_url: v })} testId="pe-image" />
