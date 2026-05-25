@@ -8,7 +8,21 @@ export function AuthProvider({ children }) {
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    const t = getToken();
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get("token");
+
+    if (urlToken) {
+      setToken(urlToken);
+      params.delete("token");
+      const nextSearch = params.toString();
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname + (nextSearch ? `?${nextSearch}` : "")
+      );
+    }
+
+    const t = urlToken || getToken();
     if (!t) {
       setChecking(false);
       return;

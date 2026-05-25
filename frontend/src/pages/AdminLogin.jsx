@@ -7,10 +7,15 @@ export default function AdminLogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
+  const [err, setErr] = useState(new URLSearchParams(window.location.search).get("error") || "");
   const [busy, setBusy] = useState(false);
 
   if (user) return <Navigate to="/admin" replace />;
+
+  const googleLogin = () => {
+    const redirect = encodeURIComponent("/admin");
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL || ""}/api/auth/google/start?redirect=${redirect}`;
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -33,6 +38,15 @@ export default function AdminLogin() {
         <p className="font-body text-ink-500 text-sm mt-2">
           Authorised personnel only. <em className="italic">Jangan main-main.</em>
         </p>
+
+        <div className="space-y-3 mt-8">
+          <button type="button" onClick={googleLogin} className="btn-oxblood w-full justify-center">
+            Continue with Google
+          </button>
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-500 leading-relaxed">
+            Only approved boss and staff Google accounts can enter.
+          </p>
+        </div>
 
         <form onSubmit={submit} className="space-y-5 mt-8">
           <div>

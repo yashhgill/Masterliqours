@@ -1,10 +1,10 @@
 module.exports = {
   // Staff names + WhatsApp numbers (international format, no + sign)
   STAFF: [
-    { name: process.env.STAFF_1_NAME || 'Staff 1', number: process.env.STAFF_1_NUMBER },
-    { name: process.env.STAFF_2_NAME || 'Staff 2', number: process.env.STAFF_2_NUMBER },
-    { name: process.env.STAFF_3_NAME || 'Staff 3', number: process.env.STAFF_3_NUMBER },
-    { name: process.env.STAFF_4_NAME || 'Staff 4', number: process.env.STAFF_4_NUMBER },
+    { name: process.env.STAFF_1_NAME || 'Staff 1', number: process.env.STAFF_1_NUMBER, email: process.env.STAFF_1_EMAIL },
+    { name: process.env.STAFF_2_NAME || 'Staff 2', number: process.env.STAFF_2_NUMBER, email: process.env.STAFF_2_EMAIL },
+    { name: process.env.STAFF_3_NAME || 'Staff 3', number: process.env.STAFF_3_NUMBER, email: process.env.STAFF_3_EMAIL },
+    { name: process.env.STAFF_4_NAME || 'Staff 4', number: process.env.STAFF_4_NUMBER, email: process.env.STAFF_4_EMAIL },
   ].filter(s => s.number),
 
   // Shortcut: just numbers for backward compat

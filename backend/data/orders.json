@@ -1,0 +1,166 @@
+{
+  "ML-1779609479122": {
+    "id": "ML-1779609479122",
+    "customer": {
+      "name": "Ahmad Razif",
+      "phone": "60123456789",
+      "address": "Bangsar, KL"
+    },
+    "items": [
+      {
+        "name": "Johnnie Walker Black Label",
+        "sku": "JW-BLK",
+        "quantity": 2,
+        "price": 189
+      },
+      {
+        "name": "Hendricks Gin",
+        "sku": "HEN-GIN",
+        "quantity": 1,
+        "price": 159
+      }
+    ],
+    "total": 537,
+    "notes": "Please deliver before 9pm",
+    "status": "delivered",
+    "acceptedBy": null,
+    "createdAt": "2026-05-24T07:57:59.122Z",
+    "updatedAt": "2026-05-24T09:08:09.043Z"
+  },
+  "ML-1779610332978": {
+    "id": "ML-1779610332978",
+    "customer": {
+      "name": "Test Customer",
+      "phone": "60123456789",
+      "address": "KLCC, KL"
+    },
+    "items": [
+      {
+        "name": "Hennessy VS",
+        "sku": "HEN-VS",
+        "quantity": 1,
+        "price": 199
+      }
+    ],
+    "total": 199,
+    "notes": "Test order",
+    "status": "delivered",
+    "acceptedBy": null,
+    "createdAt": "2026-05-24T08:12:12.978Z",
+    "updatedAt": "2026-05-24T09:08:07.402Z"
+  },
+  "ML-1779610605277": {
+    "id": "ML-1779610605277",
+    "customer": {
+      "name": "Ahmad Razif",
+      "phone": "60123456789",
+      "address": "Bangsar, KL"
+    },
+    "items": [
+      {
+        "name": "Johnnie Walker Black Label",
+        "sku": "JW-BLK",
+        "quantity": 2,
+        "price": 189
+      },
+      {
+        "name": "Hennessy VS",
+        "sku": "HEN-VS",
+        "quantity": 1,
+        "price": 199
+      }
+    ],
+    "total": 577,
+    "notes": "Please deliver before 9pm",
+    "status": "delivered",
+    "acceptedBy": null,
+    "createdAt": "2026-05-24T08:16:45.277Z",
+    "updatedAt": "2026-05-24T09:08:05.901Z"
+  },
+  "ML-1779610666105": {
+    "id": "ML-1779610666105",
+    "customer": {
+      "name": "Ahmad Razif",
+      "phone": "60123456789",
+      "address": "Bangsar, KL"
+    },
+    "items": [
+      {
+        "name": "Johnnie Walker Black Label",
+        "sku": "JW-BLK",
+        "quantity": 2,
+        "price": 189
+      },
+      {
+        "name": "Hennessy VS",
+        "sku": "HEN-VS",
+        "quantity": 1,
+        "price": 199
+      }
+    ],
+    "total": 577,
+    "notes": "Please deliver before 9pm",
+    "status": "delivered",
+    "acceptedBy": null,
+    "createdAt": "2026-05-24T08:17:46.105Z",
+    "updatedAt": "2026-05-24T09:08:04.362Z"
+  },
+  "ML-1779611856368": {
+    "id": "ML-1779611856368",
+    "customer": {
+      "name": "Ahmad Razif",
+      "phone": "60123456789",
+      "address": "Bangsar, KL"
+    },
+    "items": [
+      {
+        "name": "Johnnie Walker Black Label",
+        "sku": "JW-BLK",
+        "quantity": 2,
+        "price": 189
+      },
+      {
+        "name": "Hennessy VS",
+        "sku": "HEN-VS",
+        "quantity": 1,
+        "price": 199
+      }
+    ],
+    "total": 577,
+    "notes": "Please deliver before 9pm",
+    "status": "delivered",
+    "acceptedBy": null,
+    "createdAt": "2026-05-24T08:37:36.368Z",
+    "updatedAt": "2026-05-24T09:08:02.568Z"
+  },
+  "ML-1779613882676": {
+    "id": "ML-1779613882676",
+    "order_number": "ML-1779613882676",
+    "customer": {
+      "name": "YASHPREET SINGH GILL A/L NELVINDER SINGH",
+      "phone": "0182085097",
+      "address": "15 JALAN PJS 7/6"
+    },
+    "customer_name": "YASHPREET SINGH GILL A/L NELVINDER SINGH",
+    "phone": "0182085097",
+    "address": "15 JALAN PJS 7/6",
+    "items": [
+      {
+        "product_id": "prod_013",
+        "name": "Glenfiddich 12 Year",
+        "sku": "prod_013",
+        "price": 249,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 249,
+    "delivery_fee": 0,
+    "total": 249,
+    "notes": "",
+    "payment_method": "bank_transfer",
+    "status": "pending",
+    "acceptedBy": null,
+    "createdAt": "2026-05-24T09:11:22.676Z",
+    "updatedAt": "2026-05-24T09:11:22.676Z"
+  }
+}

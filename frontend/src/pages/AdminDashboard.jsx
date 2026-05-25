@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { api } from "../lib/api";
 import { useAuth } from "../lib/auth";
-import { LogOut, Plus, Edit3, Trash2, X } from "lucide-react";
+import { LogOut, Plus, Edit3, Trash2, X, CloudUpload } from "lucide-react";
 
 export default function AdminDashboard() {
   const { user, checking, logout } = useAuth();
@@ -11,6 +11,8 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [editing, setEditing] = useState(null);
+  const [syncingSheets, setSyncingSheets] = useState(false);
+  const [sheetResult, setSheetResult] = useState(null);
 
   const refresh = async () => {
     const [s, p, o] = await Promise.all([
@@ -24,6 +26,19 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => { if (user) refresh(); }, [user]);
+
+  const syncGoogleSheets = async () => {
+    setSyncingSheets(true);
+    setSheetResult(null);
+    try {
+      const { data } = await api.post("/google/sheets/sync");
+      setSheetResult(data);
+    } catch (err) {
+      setSheetResult({ success: false, error: err.response?.data?.error || err.message });
+    } finally {
+      setSyncingSheets(false);
+    }
+  };
 
   if (checking) return <div className="p-20 cap-mono">// AUTHENTICATING...</div>;
   if (!user) return <Navigate to="/admin/login" replace />;
@@ -39,11 +54,32 @@ export default function AdminDashboard() {
         </div>
         <div className="flex items-center gap-3">
           <span className="cap-mono">{user.email}</span>
+          <button
+            type="button"
+            onClick={syncGoogleSheets}
+            disabled={syncingSheets}
+            className="btn-ink-ghost flex items-center gap-2"
+          >
+            <CloudUpload className="w-3 h-3" /> {syncingSheets ? "Syncing..." : "Sync Sheets"}
+          </button>
           <button data-testid="admin-logout" onClick={logout} className="btn-ink-ghost flex items-center gap-2">
             <LogOut className="w-3 h-3" /> Logout
           </button>
         </div>
       </div>
+
+      {sheetResult && (
+        <div className={`mt-6 border p-4 font-mono text-xs ${sheetResult.success ? "border-gold-500 text-ink-700 bg-gold-500/10" : "border-oxblood-500 text-oxblood-600 bg-oxblood-500/10"}`}>
+          {sheetResult.success ? (
+            <span>
+              Google Sheets synced: {sheetResult.inventoryRows} inventory rows, {sheetResult.orderRows} order rows.{" "}
+              <a className="underline" href={sheetResult.spreadsheetUrl} target="_blank" rel="noreferrer">Open sheet</a>
+            </span>
+          ) : (
+            <span>{sheetResult.error}</span>
+          )}
+        </div>
+      )}
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mt-8">
         <Stat label="PRODUCTS" value={stats?.total_products ?? "—"} color="ink" />
